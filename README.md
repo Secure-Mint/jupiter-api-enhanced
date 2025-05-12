@@ -3,18 +3,7 @@
 </p>
 
 <div align="center">
-  <h1>Ts.ED - jupiter-api-enhanced</h1>
-  <br />
-  <div align="center">
-    <a href="https://cli.tsed.dev/">Website</a>
-    <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-    <a href="https://cli.tsed.dev/getting-started.html">Getting started</a>
-    <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-    <a href="https://slack.tsed.dev">Slack</a>
-    <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-    <a href="https://twitter.com/TsED_io">Twitter</a>
-  </div>
-  <hr />
+  <h1>jupiter-api-enhanced</h1>
 </div>
 
 > An awesome project based on Ts.ED framework
@@ -28,11 +17,11 @@
 $ yarn install
 
 # serve
-$ yarn start
+$ yarn dev
 
 # build for production
 $ yarn build
-$ yarn start:prod
+$ yarn start
 ```
 
 ## Docker
@@ -53,15 +42,8 @@ Edit `.barrels.json` to customize it:
 
 ```json
 {
-  "directory": [
-    "./src/controllers/rest",
-    "./src/controllers/pages"
-  ],
-  "exclude": [
-    "**/__mock__",
-    "**/__mocks__",
-    "**/*.spec.ts"
-  ],
+  "directory": ["./src/controllers/v1"],
+  "exclude": ["**/__mock__", "**/__mocks__", "**/*.spec.ts"],
   "delete": true
 }
 ```
