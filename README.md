@@ -1,7 +1,3 @@
-<p style="text-align: center" align="center">
-  <a href="https://tsed.dev" target="_blank"><img src="https://tsed.dev/tsed-og.png" width="200" alt="Ts.ED logo"/></a>
-</p>
-
 <div align="center">
   <h1>jupiter-api-enhanced</h1>
 </div>
