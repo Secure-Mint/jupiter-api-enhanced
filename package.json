@@ -2,6 +2,12 @@
   "name": "jupiter-api-enhanced",
   "version": "1.0.0",
   "description": "",
+  "author": "Muhammad Murad Malik",
+  "engines": {
+    "node": "^22.15.0",
+    "yarn": "^1.22.22",
+    "typescript": "^5.8.3"
+  },
   "scripts": {
     "build": "yarn run barrels && swc src --out-dir dist -s  --strip-leading-paths",
     "barrels": "barrels",

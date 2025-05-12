@@ -2,11 +2,9 @@
   <h1>jupiter-api-enhanced</h1>
 </div>
 
-> An awesome project based on Ts.ED framework
-
 ## Getting started
 
-> **Important!** Ts.ED requires Node >= 20.x or Bun.js and TypeScript >= 5.
+> **Important!** requires Node >= 20.x and TypeScript >= 5.x
 
 ```batch
 # install dependencies
