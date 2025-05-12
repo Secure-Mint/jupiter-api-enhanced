@@ -34,12 +34,6 @@ docker compose build
 docker compose up
 ```
 
-## Barrels
-
-This project uses [barrels](https://www.npmjs.com/package/@tsed/barrels) to generate index files to import the controllers.
-
-Edit `.barrels.json` to customize it:
-
 ```json
 {
   "directory": ["./src/controllers/v1"],
