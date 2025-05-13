@@ -18,10 +18,20 @@ generator tsed {
   provider = "tsed-prisma"
 }
 
-model User {
+model Token {
   id    String  @unique    @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  email String  @unique
-  username String @unique
+  address String @unique
+  daily_volume Float
+  decimals Int
+  extensions String?
+  freeze_authority String?
+  logo_uri String?
+  mint_authority String?
+  minted_at DateTime
+  name String
+  permanent_delegate String?
+  symbol String
+  tags String[] @default([])
 
-  @@map("user")
+  @@map("token")
 }
