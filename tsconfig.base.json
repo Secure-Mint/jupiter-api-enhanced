@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "module": "NodeNext",
+    "module": "ESNext",
     "target": "ESNext",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "bundler",
     "downlevelIteration": false,
     "isolatedModules": false,
     "suppressImplicitAnyIndexErrors": false,

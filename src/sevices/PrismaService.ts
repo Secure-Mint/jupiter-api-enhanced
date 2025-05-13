@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Injectable } from "@tsed/di";
-import { envs } from "src/config/envs/index.js";
+import { envs } from "src/config/envs";
 
 const { PG_HOST, PG_PORT, PG_USER, PG_DATABASE, PG_PASSWORD } = envs;
 

@@ -8,8 +8,8 @@ import { join } from "node:path";
 import { Configuration } from "@tsed/di";
 import { application } from "@tsed/platform-http";
 
-import { config } from "./config/index.js";
-import * as v1 from "./controllers/v1/index.js";
+import { config } from "./config/index";
+import * as v1 from "./controllers/v1/index";
 
 @Configuration({
   ...config,

@@ -2161,6 +2161,9 @@ export namespace Prisma {
   export type TokenWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     address?: string
+    minted_at?: Date | string
+    name?: string
+    symbol?: string
     AND?: TokenWhereInput | TokenWhereInput[]
     OR?: TokenWhereInput[]
     NOT?: TokenWhereInput | TokenWhereInput[]
@@ -2170,12 +2173,9 @@ export namespace Prisma {
     freeze_authority?: StringNullableFilter<"Token"> | string | null
     logo_uri?: StringNullableFilter<"Token"> | string | null
     mint_authority?: StringNullableFilter<"Token"> | string | null
-    minted_at?: DateTimeFilter<"Token"> | Date | string
-    name?: StringFilter<"Token"> | string
     permanent_delegate?: StringNullableFilter<"Token"> | string | null
-    symbol?: StringFilter<"Token"> | string
     tags?: StringNullableListFilter<"Token">
-  }, "id" | "address">
+  }, "id" | "address" | "minted_at" | "name" | "symbol">
 
   export type TokenOrderByWithAggregationInput = {
     id?: SortOrder

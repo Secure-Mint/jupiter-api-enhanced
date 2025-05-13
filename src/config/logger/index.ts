@@ -1,7 +1,7 @@
 import { DILoggerOptions } from "@tsed/di";
 import { $log } from "@tsed/logger";
 
-import { isProduction } from "../envs/index.js";
+import { isProduction } from "../envs";
 
 if (isProduction) {
   $log.appenders.set("stdout", {

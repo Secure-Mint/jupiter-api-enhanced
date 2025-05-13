@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@tsed/di";
 
-import { PrismaService } from "./PrismaService.js";
+import { PrismaService } from "./PrismaService";
 
 @Injectable()
 export class TokenService {
