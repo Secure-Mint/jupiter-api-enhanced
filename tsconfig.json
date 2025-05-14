@@ -4,6 +4,7 @@
     "baseUrl": ".",
     "noEmit": true
   },
+  "ts-node": { "esm": true },
   "include": [],
   "references": [
     {

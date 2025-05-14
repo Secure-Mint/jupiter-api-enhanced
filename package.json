@@ -12,13 +12,14 @@
     "build": "yarn run barrels && swc src --out-dir dist -s  --strip-leading-paths",
     "barrels": "barrels",
     "dev": "yarn run barrels && nodemon src/index.ts",
-    "start": "cross-env NODE_ENV=production node --import @swc-node/register/esm-register src/index.js",
+    "start": "cross-env NODE_ENV=production node --import @swc-node/register/esm-register src/index.ts",
     "test": "yarn run test:lint",
-    "prisma:migrate": "npx prisma migrate dev",
+    "prisma:migrate": "npx prisma migrate dev && yarn prisma:generate",
     "prisma:generate": "npx prisma generate",
     "test:lint": "eslint",
     "test:lint:fix": "eslint --fix",
-    "prettier": "prettier '**/*.{json,md,yml,yaml}' --write"
+    "prettier": "prettier '**/*.{json,md,yml,yaml}' --write",
+    "cron:tokens:run": "node --import @swc-node/register/esm-register src/cron/tokens/index.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.7.0",
@@ -48,6 +49,7 @@
     "@tsed/schema": "^8.8.4",
     "@tsed/swagger": "^8.8.4",
     "ajv": "^8.17.1",
+    "axios": "^1.9.0",
     "body-parser": "^2.2.0",
     "compression": "^1.8.0",
     "cookie-parser": "^1.4.7",
@@ -80,6 +82,7 @@
     "nodemon": "^3.1.10",
     "prettier": "^3.5.3",
     "prisma": "^6.7.0",
+    "ts-node": "^10.9.2",
     "tslib": "^2.8.1"
   },
   "tsed": {
