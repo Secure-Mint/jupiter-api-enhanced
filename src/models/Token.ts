@@ -1,4 +1,4 @@
-import { CollectionOf, Description, Nullable, Property, Required } from "@tsed/schema";
+import { CollectionOf, Description, Integer, Max, Min, Nullable, Property, Required } from "@tsed/schema";
 import { Token } from "generated/prisma";
 
 export class TokenModel {
@@ -32,7 +32,7 @@ export class TokenModel {
 }
 
 export class PaginationParams {
-  @Required() public readonly limit: number;
+  @Required() @Max(50) @Min(1) @Integer() public readonly limit: number;
   @Property() public readonly last_id: string;
 }
 
