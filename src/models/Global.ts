@@ -35,14 +35,19 @@ export class SuccessArrayResult<T> {
 
 @Generics("T")
 export class Pagination<T> {
+  @Required()
   @OnSerialize((v) => serialize(v, { type: serializationMap.get(v) }))
   @CollectionOf("T")
   public items: T[];
-  @Property() public total: number;
 
-  public constructor(items: T[], total: number, clazz: { new (...args: any[]): T }) {
+  @Required() public total: number;
+
+  @Required() public last_id: string;
+
+  public constructor(items: T[], total: number, last_id: string, clazz: { new (...args: any[]): T }) {
     this.items = items;
     this.total = total;
+    this.last_id = last_id;
     serializationMap.set(items, clazz);
   }
 }

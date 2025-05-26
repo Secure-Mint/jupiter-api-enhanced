@@ -21,8 +21,9 @@ import * as v1 from "./controllers/v1/index";
   },
   swagger: [
     {
-      path: "/doc",
-      specVersion: "3.0.1"
+      path: "/v1/docs",
+      specVersion: "3.0.1",
+      pathPatterns: ["/v1/**"]
     }
   ],
   middlewares: [

@@ -1,9 +1,10 @@
 import { Controller, Inject } from "@tsed/di";
-import { QueryParams, Context } from "@tsed/platform-params";
+import { QueryParams, Context, PathParams } from "@tsed/platform-params";
 import { Get, Returns } from "@tsed/schema";
-import { PaginationParams, TokenModel } from "../../models";
+import { Address, TokenListParams, TokenModel } from "../../models";
 import { TokenService } from "../../services/TokenService";
 import { SuccessResult, Pagination } from "../../models";
+import { NotFound } from "@tsed/exceptions";
 
 @Controller("/token")
 export class TokenController {
@@ -11,9 +12,16 @@ export class TokenController {
 
   @Get("/list")
   @(Returns(200, SuccessResult).Of(Pagination).Nested(TokenModel))
-  public async getAllTokens(@QueryParams() query: PaginationParams, @Context() ctx: Context) {
-    const tokens = await this.tokenService.findPaginated(query);
+  public async getAllTokens(@QueryParams() query: TokenListParams, @Context() ctx: Context) {
+    const { list, total } = await this.tokenService.findPaginated(query);
+    return new SuccessResult(new Pagination(TokenModel.buildArray(list), total, "", TokenModel), Pagination);
+  }
 
-    return new SuccessResult(new Pagination(tokens, 100, TokenModel), Pagination);
+  @Get("/:address")
+  @(Returns(200, SuccessResult).Of(TokenModel))
+  public async getTokenByAddress(@PathParams() { address }: Address, @Context() ctx: Context) {
+    const token = await this.tokenService.findByAddress(address);
+    if (!token) throw new NotFound("Address not found");
+    return new SuccessResult(TokenModel.build(token), TokenModel);
   }
 }
