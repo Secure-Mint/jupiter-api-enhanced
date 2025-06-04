@@ -34,7 +34,23 @@ export class SuccessArrayResult<T> {
 }
 
 @Generics("T")
-export class Pagination<T> {
+export class PaginationOffset<T> {
+  @Required()
+  @OnSerialize((v) => serialize(v, { type: serializationMap.get(v) }))
+  @CollectionOf("T")
+  public items: T[];
+
+  @Required() public total: number;
+
+  public constructor(items: T[], total: number, clazz: { new (...args: any[]): T }) {
+    this.items = items;
+    this.total = total;
+    serializationMap.set(items, clazz);
+  }
+}
+
+@Generics("T")
+export class PaginationKeyset<T> {
   @Required()
   @OnSerialize((v) => serialize(v, { type: serializationMap.get(v) }))
   @CollectionOf("T")

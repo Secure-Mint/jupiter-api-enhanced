@@ -47,6 +47,7 @@ const hasTokenChanged = (
           prisma.token.create({
             data: {
               ...fetchedToken,
+              tags: fetchedToken.tags.filter((item) => item !== "unknown"),
               extensions: fetchedToken.extensions as unknown as Prisma.JsonObject,
               expiry: addMinutes(new Date(), 30),
               created_at: new Date(fetchedToken.created_at),

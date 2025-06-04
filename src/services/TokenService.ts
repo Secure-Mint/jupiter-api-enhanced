@@ -29,25 +29,53 @@ export class TokenService {
     });
   }
 
-  public async findPaginated({ limit, next_index }: TokenListParams) {
-    console.log("is valid", isValidUUID(next_index));
-    const [list, total]: [Token[], number] = await prisma.$transaction([
-      isValidUUID(next_index)
-        ? prisma.$queryRaw`
-        SELECT *
-        FROM token
-        WHERE id > ${next_index}::uuid
-        ORDER BY id ASC
-        LIMIT ${limit}`
-        : prisma.$queryRaw`
-        SELECT *
-        FROM token
-        ORDER BY id ASC
-        LIMIT ${limit}`,
-      prisma.token.count()
+  public async findPaginated({ limit, next_index, created_at, tags }: TokenListParams) {
+    let whereClauses: string[] = [];
+    const params: any[] = [];
+    let paramIndex = 1;
+    const isUUID = isValidUUID(next_index);
+
+    if (isUUID) {
+      whereClauses.push(`id > $${paramIndex++}::uuid`);
+      params.push(next_index);
+    }
+
+    if (created_at) {
+      whereClauses.push(`created_at > $${paramIndex++}`);
+      params.push(created_at);
+    }
+
+    if (tags) {
+      console.log("attached tags...");
+      whereClauses.push(`tags && ARRAY[$${paramIndex++}]`);
+      params.push(tags);
+    }
+
+    const whereSQL = whereClauses.length ? `WHERE ${whereClauses.join(" AND ")}` : "";
+
+    const listSQL = `
+      SELECT * FROM token
+      ${whereSQL}
+      ORDER BY id ASC
+      LIMIT $${paramIndex}
+    `;
+    params.push(limit);
+
+    const countSQL = `
+      SELECT COUNT(*)::int AS count
+      FROM token
+      ${whereSQL}
+    `;
+
+    const [list, countResult] = await Promise.all([
+      prisma.$queryRawUnsafe<Token[]>(listSQL, ...params),
+      prisma.$queryRawUnsafe<{ count: number }[]>(countSQL, ...params.slice(0, paramIndex - 1))
     ]);
 
-    return { list, total };
+    return {
+      list,
+      total: countResult[0]?.count ?? 0
+    };
   }
 
   public async deletedExpired() {

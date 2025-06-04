@@ -43,9 +43,9 @@ export class Address {
 export class TokenListParams extends PaginationParams {
   @Property(String)
   @Description("A list of one or more tags, comma separated. The list is the union of tokens with these tags.")
-  public readonly tags: string | null;
+  public tags: string | null;
 
   @Property(String)
   @Description("Created after this timestamp. Pass this value as UNIX timestamp")
-  public readonly created_at: string | null;
+  public created_at: string | null;
 }
