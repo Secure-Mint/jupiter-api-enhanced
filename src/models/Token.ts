@@ -33,7 +33,7 @@ export class TokenModel {
 
 export class PaginationParams {
   @Required() @Max(50) @Min(1) @Integer() public readonly limit: number;
-  @Property() public readonly last_id: string;
+  @Property() public readonly next_index: string;
 }
 
 export class Address {

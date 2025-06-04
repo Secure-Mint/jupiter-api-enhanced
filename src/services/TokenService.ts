@@ -29,14 +29,14 @@ export class TokenService {
     });
   }
 
-  public async findPaginated({ limit, last_id }: TokenListParams) {
-    console.log("is valid", isValidUUID(last_id));
+  public async findPaginated({ limit, next_index }: TokenListParams) {
+    console.log("is valid", isValidUUID(next_index));
     const [list, total]: [Token[], number] = await prisma.$transaction([
-      isValidUUID(last_id)
+      isValidUUID(next_index)
         ? prisma.$queryRaw`
         SELECT *
         FROM token
-        WHERE id > ${last_id}::uuid
+        WHERE id > ${next_index}::uuid
         ORDER BY id ASC
         LIMIT ${limit}`
         : prisma.$queryRaw`

@@ -42,12 +42,12 @@ export class Pagination<T> {
 
   @Required() public total: number;
 
-  @Required() public last_id: string;
+  @Required() public next_index: string;
 
-  public constructor(items: T[], total: number, last_id: string, clazz: { new (...args: any[]): T }) {
+  public constructor(items: T[], total: number, next_index: string, clazz: { new (...args: any[]): T }) {
     this.items = items;
     this.total = total;
-    this.last_id = last_id;
+    this.next_index = next_index;
     serializationMap.set(items, clazz);
   }
 }

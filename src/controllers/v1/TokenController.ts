@@ -14,7 +14,8 @@ export class TokenController {
   @(Returns(200, SuccessResult).Of(Pagination).Nested(TokenModel))
   public async getAllTokens(@QueryParams() query: TokenListParams, @Context() ctx: Context) {
     const { list, total } = await this.tokenService.findPaginated(query);
-    return new SuccessResult(new Pagination(TokenModel.buildArray(list), total, "", TokenModel), Pagination);
+    const next_index = list[list.length - 1].id;
+    return new SuccessResult(new Pagination(TokenModel.buildArray(list), total, next_index, TokenModel), Pagination);
   }
 
   @Get("/:address")
