@@ -29,7 +29,7 @@ export class TokenService {
     });
   }
 
-  public async findPaginated({ limit, next_index, created_at, tags }: TokenListParams) {
+  public async findPaginated({ limit, next_index, tags, created_at, updated_at }: TokenListParams) {
     let whereClauses: string[] = [];
     const params: any[] = [];
     let paramIndex = 1;
@@ -42,7 +42,12 @@ export class TokenService {
 
     if (created_at) {
       whereClauses.push(`created_at > $${paramIndex++}`);
-      params.push(created_at);
+      params.push(new Date(created_at));
+    }
+
+    if (updated_at) {
+      whereClauses.push(`updated_at > $${paramIndex++}`);
+      params.push(new Date(updated_at));
     }
 
     if (tags) {

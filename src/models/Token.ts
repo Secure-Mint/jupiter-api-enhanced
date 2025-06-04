@@ -45,7 +45,15 @@ export class TokenListParams extends PaginationParams {
   @Description("A list of one or more tags, comma separated. The list is the union of tokens with these tags.")
   public tags: string | null;
 
-  @Property(String)
-  @Description("Created after this timestamp. Pass this value as UNIX timestamp")
-  public created_at: string | null;
+  @Property(Number)
+  @Description(
+    "Created after this timestamp. Pass this value as milliseconds timestamp number or remove this property from your query if you don't want this filter"
+  )
+  public created_at: number | null;
+
+  @Property(Number)
+  @Description(
+    "Created after this timestamp. Pass this value as milliseconds timestamp number or remove this property from your query if you don't want this filter"
+  )
+  public updated_at: number | null;
 }

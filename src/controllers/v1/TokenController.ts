@@ -20,6 +20,9 @@ export class TokenController {
         .filter((x) => x !== "")
         .join(",") || "";
 
+    query.created_at = query.created_at || 0;
+    query.updated_at = query.updated_at || 0;
+
     const { list, total } = await this.tokenService.findPaginated(query);
     const next_index = list.length ? list[list.length - 1].id : "";
     return new SuccessResult(new PaginationKeyset(TokenModel.buildArray(list), total, next_index, TokenModel), PaginationKeyset);
