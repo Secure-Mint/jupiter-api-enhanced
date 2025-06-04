@@ -21,6 +21,7 @@ const hasTokenChanged = (
   console.log("FETCHING TOKENS ...");
 
   const chunkSize = 100;
+  const tokenExpiryInMinutes = 60;
   const request: RequestData = {
     url: tokensURL,
     method: "GET"
@@ -49,7 +50,7 @@ const hasTokenChanged = (
               ...fetchedToken,
               tags: fetchedToken.tags.filter((item) => item !== "unknown"),
               extensions: fetchedToken.extensions as unknown as Prisma.JsonObject,
-              expiry: addMinutes(new Date(), 30),
+              expiry: addMinutes(new Date(), tokenExpiryInMinutes),
               created_at: new Date(fetchedToken.created_at),
               updated_at: new Date(fetchedToken.created_at),
               deleted_at: null
@@ -62,15 +63,15 @@ const hasTokenChanged = (
           data: {
             ...fetchedToken,
             extensions: fetchedToken.extensions as unknown as Prisma.JsonObject,
-            expiry: addMinutes(new Date(dbToken.expiry || new Date()), 30),
-            updated_at: fetchedToken.updated_at ? new Date(fetchedToken.updated_at) : new Date()
+            expiry: addMinutes(new Date(dbToken.expiry || new Date()), tokenExpiryInMinutes),
+            updated_at: new Date()
           }
         });
       } else {
         prisma.token.update({
           where: { address: fetchedToken.address },
           data: {
-            expiry: addMinutes(new Date(dbToken.expiry || new Date()), 30)
+            expiry: addMinutes(new Date(dbToken.expiry || new Date()), tokenExpiryInMinutes)
           }
         });
       }

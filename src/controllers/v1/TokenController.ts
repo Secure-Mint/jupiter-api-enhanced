@@ -5,6 +5,8 @@ import { Address, TokenListParams, TokenModel } from "../../models";
 import { TokenService } from "../../services/TokenService";
 import { SuccessResult, PaginationKeyset } from "../../models";
 import { NotFound } from "@tsed/exceptions";
+import { UseBefore } from "@tsed/platform-middlewares";
+import { RequestMiddleware } from "../../middlewares/RequestValidationMiddleware";
 
 @Controller("/token")
 export class TokenController {
@@ -12,6 +14,7 @@ export class TokenController {
 
   @Get("/list")
   @(Returns(200, SuccessResult).Of(PaginationKeyset).Nested(TokenModel))
+  @UseBefore(RequestMiddleware)
   public async getAllTokens(@QueryParams() query: TokenListParams, @Context() ctx: Context) {
     query.tags =
       query.tags
@@ -19,9 +22,6 @@ export class TokenController {
         .split(",")
         .filter((x) => x !== "")
         .join(",") || "";
-
-    query.created_at = query.created_at || 0;
-    query.updated_at = query.updated_at || 0;
 
     const { list, total } = await this.tokenService.findPaginated(query);
     const next_index = list.length ? list[list.length - 1].id : "";

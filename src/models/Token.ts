@@ -34,6 +34,11 @@ export class TokenModel {
 export class PaginationParams {
   @Required() @Max(50) @Min(1) @Integer() public readonly limit: number;
   @Property() public readonly next_index: string;
+
+  constructor({ limit, next_index }: { limit: number; next_index: string }) {
+    this.limit = Math.min(Math.max(limit, 1), 50); // auto-correct
+    this.next_index = next_index;
+  }
 }
 
 export class Address {
@@ -47,13 +52,15 @@ export class TokenListParams extends PaginationParams {
 
   @Property(Number)
   @Description(
-    "Created after this timestamp. Pass this value as milliseconds timestamp number or remove this property from your query if you don't want this filter"
+    `Tokens added after this timestamp. Pass this value as milliseconds timestamp number
+     or remove this property from your query if you don't want this filter`
   )
   public created_at: number | null;
 
   @Property(Number)
   @Description(
-    "Created after this timestamp. Pass this value as milliseconds timestamp number or remove this property from your query if you don't want this filter"
+    `Tokens updated after this timestamp. Pass this value as milliseconds timestamp number
+     or remove this property from your query if you don't want this filter`
   )
   public updated_at: number | null;
 }
